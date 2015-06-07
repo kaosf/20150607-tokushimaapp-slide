@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="tokushima.app on 2015-06-07" />
+  <title>CLIでAndroid開発環境</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="slidy.css" />
+  <script src="slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">CLIでAndroid開発環境</h1>
+  <p class="author">
+tokushima.app on 2015-06-07
+  </p>
+  <p class="date">か <a href="http://www.kaosfield.net">kaosfield</a> <a href="https://twitter.com/ka_">Twitter</a></p>
+</div>
+<div id="androidアプリのビルドをcliで完結させる" class="slide section level1">
+<h1>AndroidアプリのビルドをCLIで完結させる</h1>
+</div>
+<div id="遥か昔に自分がやってたこと" class="slide section level1">
+<h1>遥か昔に自分がやってたこと</h1>
+<ul class="incremental">
+<li>VPSを借りる</li>
+<li>Android SDKをダウンロードする(<code>wget</code>などで)</li>
+<li>ここでおもむろにVNC Serverをインストールする</li>
+<li>Xをインストールする</li>
+<li>GUIでAndroid SDK Managerを操作して必要なものをインストール</li>
+</ul>
+</div>
+<div id="利点と欠点" class="slide section level1">
+<h1>利点と欠点</h1>
+<ul class="incremental">
+<li>利点
+<ul class="incremental">
+<li>何をやってるのか見て分かる</li>
+<li>新しく何かを調べる必要も無い</li>
+</ul></li>
+<li>欠点
+<ul class="incremental">
+<li>セットアップが大変</li>
+<li><code>ubuntu-desktop</code>パッケージとか入れるの辛い
+<ul class="incremental">
+<li>必要最小限のパッケージを選べば軽いんだろうけどそれ調べるのも…</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="ちょっと前に自分がやってたこと" class="slide section level1">
+<h1>ちょっと前に自分がやってたこと</h1>
+<p>以下のコマンドを打つ</p>
+<pre class="sh"><code>android update sdk --no-ui --all</code></pre>
+</div>
+<div id="利点と欠点-1" class="slide section level1">
+<h1>利点と欠点</h1>
+<ul class="incremental">
+<li>利点
+<ul class="incremental">
+<li>CLIだけで完結する(重要)</li>
+</ul></li>
+<li>欠点
+<ul class="incremental">
+<li>全部入り状態になるので非常に時間がかかる
+<ul class="incremental">
+<li>寝る前に実行して起きたら終わってる</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="最近の自分がやっていること" class="slide section level1">
+<h1>最近の自分がやっていること</h1>
+<div class="incremental">
+<p>まず以下のコマンドを打つ</p>
+<pre class="sh"><code>android list sdk --no-ui --all</code></pre>
+<p>次のような出力が得られる</p>
+<pre><code>Packages available for installation or update: 151
+   1- Android SDK Tools, revision 24.3.1
+   2- Android SDK Platform-tools, revision 22
+   3- Android SDK Platform-tools, revision 23 rc1
+   4- Android SDK Build-tools, revision 23 rc2
+   5- Android SDK Build-tools, revision 22.0.1
+ (中略)
+ 150- Android Auto API Simulators, revision 1
+ 151- Google Web Driver, revision 2</code></pre>
+</div>
+</div>
+<div id="最近の自分がやっていること-1" class="slide section level1">
+<h1>最近の自分がやっていること</h1>
+<p>Android SDK Managerで表示される一覧が数値によるインデックス付きで表示されている状態である</p>
+<div class="incremental">
+<p>ここで以下のコマンドを打つと指定したものだけをインストール出来る</p>
+<pre class="sh"><code>android update sdk --no-ui --all --filter 1,2,10,100,150</code></pre>
+<p>この場合1と2と10と100と150がインストールされる</p>
+</div>
+</div>
+<div id="私が実際にインストールしているもの" class="slide section level1">
+<h1>私が実際にインストールしているもの</h1>
+<pre><code>Android SDK Tools, revision x.y.z
+Android SDK Platform-tools, revision x.y.z
+Android SDK Build-tools, revision x.y.z
+SDK Platform Android x.y.z, API ww, revision v
+Android Support Repository, revision x
+Android Support Library, revision x.y.z
+Google Play services, revision x.y.z</code></pre>
+<p>以上の項目に相当するものをインストールした</p>
+<p>WebViewメインのアプリをビルドするのには困らなかった</p>
+</div>
+<div id="ubuntuでのその他注意事項" class="slide section level1">
+<h1>Ubuntuでのその他注意事項</h1>
+<ul class="incremental">
+<li>以下のパッケージを必ずインストールすること
+<ul class="incremental">
+<li>lib32stdc++6</li>
+<li>lib32z1</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<pre class="sh"><code>sudo apt-get install lib32stdc++6 lib32z1</code></pre>
+</div>
+</div>
+<div id="ここまで出来れば後は簡単" class="slide section level1">
+<h1>ここまで出来れば後は簡単</h1>
+<ul class="incremental">
+<li>Gradleが面倒見てくれる</li>
+<li><code>gradlew</code>コマンドが実際最強</li>
+</ul>
+</div>
+</body>
+</html>
+<!-- Pandoc version:
+pandoc 1.14.0.4
+Compiled with texmath 0.8.2, highlighting-kate 0.6.
+Syntax highlighting is supported for the following languages:
+    abc, actionscript, ada, agda, apache, asn1, asp, awk, bash, bibtex, boo, c,
+    changelog, clojure, cmake, coffee, coldfusion, commonlisp, cpp, cs, css,
+    curry, d, diff, djangotemplate, dockerfile, dot, doxygen, doxygenlua, dtd,
+    eiffel, email, erlang, fasm, fortran, fsharp, gcc, glsl, gnuassembler, go,
+    haskell, haxe, html, idris, ini, isocpp, java, javadoc, javascript, json,
+    jsp, julia, kotlin, latex, lex, lilypond, literatecurry, literatehaskell,
+    lua, m4, makefile, mandoc, markdown, mathematica, matlab, maxima, mediawiki,
+    metafont, mips, modelines, modula2, modula3, monobasic, nasm, noweb,
+    objectivec, objectivecpp, ocaml, octave, opencl, pascal, perl, php, pike,
+    postscript, prolog, pure, python, r, relaxng, relaxngcompact, rest, rhtml,
+    roff, ruby, rust, scala, scheme, sci, sed, sgml, sql, sqlmysql,
+    sqlpostgresql, tcl, tcsh, texinfo, verilog, vhdl, xml, xorg, xslt, xul,
+    yacc, yaml, zsh
+Default user data directory: <DELETED>
+Copyright (C) 2006-2015 John MacFarlane
+Web:  http://johnmacfarlane.net/pandoc
+This is free software; see the source for copying conditions.
+There is no warranty, not even for merchantability or fitness
+for a particular purpose.
+-->
