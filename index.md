@@ -108,3 +108,10 @@ sudo apt-get install lib32stdc++6 lib32z1
 
 - Gradleが面倒見てくれる
 - `gradlew`コマンドが実際最強
+
+# リンク集
+
+<ul>
+<li>[このスライドのリポジトリ](https://github.com/kaosf/20150607-tokushimaapp-slide)</li>
+<li>[自分のセットアップメモ](https://github.com/kaosf/ubuntu-setup/blob/master/android-setup.sh)</li>
+</ul>
